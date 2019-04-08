@@ -7,6 +7,21 @@ using namespace std;
 struct Cell {
 	int row;
 	int col;
+	int val;
+	int n_val;
+};
+
+struct gameInfo {
+	Cell *map;
+	Cell *my_targets;
+	Cell *opp_targets;
+	Cell my_last_target;
+	Cell opp_last_target;
+};
+
+enum dataType {
+	ARRAY,
+	VAR
 };
 
 class TicTacToe

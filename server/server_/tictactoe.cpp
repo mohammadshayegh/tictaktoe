@@ -70,6 +70,7 @@ bool TicTacToe::markTarget(Cell target)
 		return 0;
 
 	map[target.row][target.col] = turn;
+	addChoice(target);
 	setTurn();
 
 	return 1;
@@ -96,12 +97,58 @@ void TicTacToe::startGame()
 
 	} while (noWinner() && !mapIsFull());
 }
+vector<Cell> TicTacToe::getChoices()
+{
+	return choices[turn-1];
+}
+void TicTacToe::addChoice(Cell target)
+{
+	choices[turn - 1].push_back(target);
+}
+
+vector<Cell> TicTacToe::getOppChoices()
+{
+	return choices[getOppTurn()];
+}
+
+vector<Cell> TicTacToe::getMap()
+{
+	vector<Cell> cells;
+	Cell cell;
+	
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; j++) 
+		{
+			cell.row = i;
+			cell.col = j;
+			cell.val = map[i][j];
+			cells.push_back(cell);
+		}
+	}
+	return cells;
+}
 int  TicTacToe::getTurn()
 {
 	return turn;
 }
 
-// user can change this class based on its requierments
+int TicTacToe::getOppTurn()
+{
+	/*
+		turn | index | opp index
+		------------------------
+		  1		 0		  1
+		  2		 1		  0
+	*/
+
+	if (turn == 1)
+		return 1;
+	else
+		return 0;
+}
+
+// user can change this function based on his requierments
 Cell TicTacToe::getTargetsFromClient()
 {
 	Cell target;
